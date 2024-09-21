@@ -47,7 +47,7 @@ describe "camion" {
         camion.cargar(knightRider)
         camion.cargar(bateriaAntiaerea)
         camion.cargar(residuosRadioactivos)
-        camion.cargar(bumblebeeRobot)
+        camion.cargar(bumblebee)
         assert.that(camion.excedidoDePeso())
     }
     test "objetosQueSuperanPeligrosidad(nivel) " {
