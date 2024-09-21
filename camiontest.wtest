@@ -154,9 +154,9 @@ describe "camion" {
         camion.transportar(almacen, caminosVecinales)
         assert.equals(#{bumblebeeRobot}, almacen.cosas())
 }
-    test "transportaaaaa (destino, camino)"{
+    test "como queda el camion despues del clear"{
         camion.cargar(knightRider)
         camion.transportar(almacen, caminosVecinales)
-        assert.equals(#{knightRider}, almacen.cosas())
+        assert.equals(#{}, camion.cosas())
 }
 }   
