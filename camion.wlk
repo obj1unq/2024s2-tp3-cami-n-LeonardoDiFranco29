@@ -30,7 +30,7 @@ object camion {
 	}
 
 	method excedidoDePeso() {
-	  return self.pesoTotal() == 2500
+	  return self.pesoTotal() > 2500
 	}
 
 	method objetosQueSuperanPeligrosidad(nivel) {
@@ -42,7 +42,7 @@ object camion {
 	}
 
 	method puedeCircularEnRuta(nivelMaximoPeligrosidad) {
-		return self.excedidoDePeso() and self.noSuperanElNivelMaximo(nivelMaximoPeligrosidad)
+		return not self.excedidoDePeso() and self.noSuperanElNivelMaximo(nivelMaximoPeligrosidad)
 	}
 	method noSuperanElNivelMaximo(nivelMaximo) {
 	  return not cosas.all({cosa => cosa.nivelPeligrosidad() > nivelMaximo})
