@@ -1,3 +1,4 @@
+import camion.*
 object knightRider {
 	method peso() { return 500 }
 	method nivelPeligrosidad() { return 10 }
@@ -24,10 +25,10 @@ object knightRider {
 	}
 
 	method esRobot() {
-		return robot
+		return tipo == robot
 	}
 	method esAuto() {
-		return auto
+		return tipo == auto
 	}
 }*/
 
@@ -38,6 +39,7 @@ object bumblebeeAuto {
 
 	method reaccionarAlCargar() {
         	camion.cargar(bumblebeeRobot)
+            camion.descargar(self)
     }
 }
 
@@ -53,7 +55,7 @@ object bumblebeeRobot {
 
 
 object paqueteDeLadrillos {
-    var cantidadDeLadrillos = 0  
+    var cantidadDeLadrillos = 5  
 
     method peso() {
         return cantidadDeLadrillos * 2  
@@ -68,8 +70,11 @@ object paqueteDeLadrillos {
     }
 
 	method cantidadDeLadrillos(_cantidadDeLadrillos) {
-			cantidadDeLadrillos = _cantidadDeLadrillos
+			cantidadDeLadrillos = _cantidadDeLadrillos        
 	}
+    method cantidadDeLadrillos() {
+      return cantidadDeLadrillos
+    }
 
 	method bultos() {
         if (cantidadDeLadrillos <= 100) {
@@ -137,6 +142,9 @@ object bateriaAntiaerea {
 	method conMisiles(_conMisiles) {
 			conMisiles = _conMisiles
 	}
+    method conMisiles() {
+      return conMisiles
+    }
 
 	method bultos() {
         if (conMisiles) {
@@ -147,7 +155,7 @@ object bateriaAntiaerea {
     }
 
 	method reaccionarAlCargar() {
-        conMisiles = true  // agregarMisiles()
+        conMisiles = true  // es lo mismo que agregarMisiles()
     }
 
 
@@ -162,40 +170,40 @@ object bateriaAntiaerea {
 
 
 object contenedorPortuario {
-    const cosas = #{}
+    const contenido = #{}
     
     method peso() {
-        return 100 + cosas.sum({cosa => cosa.peso()})
+        return contenido.sum({cosa => cosa.peso()}) + 100
     }
 
     method nivelPeligrosidad() {
-        if (cosas.isEmpty()) {
-            return 0
-        } else {
-            return cosas.max({cosa => cosa.nivelPeligrosidad()})
-        }
+    if (contenido.isEmpty()) {
+        return 0
+    } else {
+        return contenido.map({ cosa => cosa.nivelPeligrosidad() }).max()
+    }
     }
 
     method agregarCosa(cosa) {
-        cosas.add(cosa)
+        contenido.add(cosa)
     }
 
     method removerCosa(cosa) {
-        cosas.remove(cosa)
+        contenido.remove(cosa)
     }
 
 	method bultos() {
-        return 1 + cosas.sum({ cosa => cosa.bultos() })
+        return 1 + contenido.sum({ cosa => cosa.bultos() })
     }
 
 	method reaccionarAlCargar() {
-        cosas.forEach({cosa => cosa.reaccionarAlCargar()})  // que para cada cosa reaccione 
+        contenido.forEach({cosa => cosa.reaccionarAlCargar()})  // que para cada cosa reaccione 
     }														//(dijieron que no ibamos a usar for each)
 }
 
 
 object residuosRadioactivos {
-    var pesoActual = 0   
+    var pesoActual = 500  
 
     method peso() {
         return pesoActual

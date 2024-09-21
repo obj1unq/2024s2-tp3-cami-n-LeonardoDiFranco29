@@ -1,6 +1,8 @@
 import cosas.*
 import caminos.*
 import destinos.*
+
+
 object camion {
 	const property cosas = #{}
 		
@@ -14,7 +16,8 @@ object camion {
 	}
 
 	method todoPesoPar(){
-		return not cosas.all({cosa => cosa.peso().odd() })
+		// return not cosas.all({cosa => cosa.peso().odd() })
+		return cosas.all({cosa => cosa.peso().even()})
 	}
 
 	method hayAlgunoQuePesa(peso) {
@@ -42,17 +45,17 @@ object camion {
 	}
 
 	method puedeCircularEnRuta(nivelMaximoPeligrosidad) {
-		return not self.excedidoDePeso() and self.noSuperanElNivelMaximo(nivelMaximoPeligrosidad)
+		return (not self.excedidoDePeso()) and (not self.algunoSuperaElNivelMaximo(nivelMaximoPeligrosidad))
 	}
-	method noSuperanElNivelMaximo(nivelMaximo) {
-	  return not cosas.all({cosa => cosa.nivelPeligrosidad() > nivelMaximo})
+	method algunoSuperaElNivelMaximo(nivelMaximo) {
+	  return cosas.any({cosa => cosa.nivelPeligrosidad() > nivelMaximo})
 	}
 
 	method tieneAlgoQuePesaEntre(min,max) {
-		return cosas.any({cosa => cosa.peso() > min and cosa.peso() < max})
+		return cosas.any({cosa => cosa.peso() >= min and cosa.peso() <= max})
 	}
 
-	method cosasMasPesada() {
+	method cosaMasPesada() {
 	  return cosas.max({cosa => cosa.peso()})
 	}
 
@@ -66,8 +69,10 @@ object camion {
 
 	method transportar(destino, camino) {
         self.validarTransporte(destino, camino) 
-		cosas.forEach({ cosa => destino.recibirCosa(cosa) }) // todas las cosas que están en el camión pasan al almacén
+		cosas.forEach({ cosa => destino.recibir(cosa) }) // todas las cosas que están en el camión pasan al almacén
         cosas.clear()  // con clear limpio/vacio el camion porque le di las cosas al almacen
+
+
     }
 
 	method validarTransporte(destino, camino) {
@@ -80,18 +85,18 @@ object camion {
     if (self.excedidoDePeso()) {
         self.error("El camión está excedido de peso!")
     }
-}
+	}
 
-method validarCaminoSoportado(camino) {
-    if (not camino.permiteViajar(self)) {
+	method validarCaminoSoportado(camino) {
+    if (not camino.permiteViaje(self)) {
         self.error("El camino no soporta el viaje!")
     }
-}
+	}
 
-method validarCapacidadDestino(destino) {
+	method validarCapacidadDestino(destino) {
     if (not destino.puedeRecibir(self.totalBultos())) {
         self.error("El destino no puede recibir más bultos!")
     }
-}
+	}
 
 }
