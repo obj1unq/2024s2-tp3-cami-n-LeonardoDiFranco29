@@ -2,7 +2,7 @@ import camion.*
 import cosas.*
 
 
-object almacen {
+object almacen{
     var capacidadMaximaDeBultos = 8  
     const property cosas = #{}
 

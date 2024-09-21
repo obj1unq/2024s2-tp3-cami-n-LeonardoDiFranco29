@@ -97,11 +97,11 @@ describe "camion" {
         camion.cargar(knightRider)
         assert.equals( 3, camion.totalBultos())
     }
-    test "consecuencia Bumblebee  " {
+    test "consecuencia Bumblebee pasa a robot; " {
         
-        camion.cargar(bumblebeeAuto)
+        camion.cargar(bumblebee)
 
-        assert.equals( #{bumblebeeRobot}, camion.cosas())
+        assert.equals(bumblebeeRobot, bumblebee.forma())
     }
     test "consecuencia ladrillos  " {
         
@@ -150,9 +150,9 @@ describe "camion" {
         assert.that(almacen.puedeRecibir(7))
     }
     test "transporta (destino, camino)"{
-        camion.cargar(bumblebeeAuto)
+        camion.cargar(bumblebee)
         camion.transportar(almacen, caminosVecinales)
-        assert.equals(#{bumblebeeRobot}, almacen.cosas())
+        assert.equals(#{bumblebee}, almacen.cosas())
 }
     test "como queda el camion despues del clear"{
         camion.cargar(knightRider)

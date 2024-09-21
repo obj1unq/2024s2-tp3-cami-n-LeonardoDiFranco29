@@ -9,38 +9,36 @@ object knightRider {
     }
 }
 
-/*object bumblebee {
+object bumblebee {
 
-	var tipo = robot 
+	var forma = bumblebeeAuto 
 
 	method peso() { return 800 }
-	method nivelPeligrosidad() { return self.calcularPeligrosidad() }
-	
-	method calcularPeligrosidad() {
-		if (esRobot()) {
-			return 30
-		} else (esAuto()){
-			return 15
-		}
-	}
-
-	method esRobot() {
-		return tipo == robot
-	}
-	method esAuto() {
-		return tipo == auto
-	}
-}*/
+	method nivelPeligrosidad() { return forma.nivelPeligrosidad() }
+	method forma(_forma){
+        forma = _forma
+    }
+    method forma() {
+      return forma
+    }
+    
+    method bultos() { return 2 }
+    
+    method reaccionarAlCargar() {
+            self.forma(bumblebeeRobot)
+    }
+}
 
 object bumblebeeAuto {
     method peso() { return 800 }
     method nivelPeligrosidad() { return 15 }
 	method bultos() { return 2 }
 
-	method reaccionarAlCargar() {
-        	camion.cargar(bumblebeeRobot)
-            camion.descargar(self)
-    }
+	//method reaccionarAlCargar() {
+            //camion.cargar(bumblebeeRobot)
+            //camion.descargar(self)
+            
+    //}
 }
 
 object bumblebeeRobot {
